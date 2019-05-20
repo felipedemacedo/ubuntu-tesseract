@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install -y tesseract-ocr-eng python3.7 python-pip
 
 WORKDIR /
 ADD tessdata.tar .
+ADD tesseract.tar .
+
 ENV TESSDATA_PREFIX=/tessdata/
 
 # Install Google Chrome dependencies
