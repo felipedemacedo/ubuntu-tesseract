@@ -23,6 +23,9 @@ RUN \
   apt-get install -y google-chrome-stable && \
   rm -rf /var/lib/apt/lists/*
 
+# Install Firefox
+RUN apt-get install -y firefox
+
 # Install System.Drawing native dependencies https://github.com/dotnet/dotnet-docker/issues/618
 RUN apt-get update \
     && apt-get install -y --allow-unauthenticated \
