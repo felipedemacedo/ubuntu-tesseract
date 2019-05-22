@@ -3,6 +3,9 @@ FROM ubuntu:18.04
 
 LABEL author="felipedemacedo" created_at="15/04/2019"
 
+# Install Firefox
+RUN apt-get update && apt-get install -y firefox
+
 # Install Tesseract
 RUN apt-get update && apt-get install -y software-properties-common wget
 RUN add-apt-repository -y ppa:alex-p/tesseract-ocr
@@ -22,9 +25,6 @@ RUN \
   apt-get update && \
   apt-get install -y google-chrome-stable && \
   rm -rf /var/lib/apt/lists/*
-
-# Install Firefox
-RUN apt-get install -y firefox
 
 # Install System.Drawing native dependencies https://github.com/dotnet/dotnet-docker/issues/618
 RUN apt-get update \
