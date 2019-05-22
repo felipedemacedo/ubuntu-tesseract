@@ -1,13 +1,21 @@
-# FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-preview3-stretch
 FROM ubuntu:18.04
 
-LABEL author="felipedemacedo" created_at="15/04/2019"
+LABEL author="felipedemacedo" created_at="15/04/2019" updated_at="22/05/2019"
 
-# Install Firefox
-RUN apt-get update && apt-get install -y firefox
-
-# Install Tesseract
 RUN apt-get update && apt-get install -y software-properties-common wget
+
+#=========
+# Firefox
+#=========
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    firefox \
+    flashplugin-installer \
+    unzip \
+    ca-certificates
+
+#=========
+# Tesseract
+#=========
 RUN add-apt-repository -y ppa:alex-p/tesseract-ocr
 RUN add-apt-repository -y ppa:deadsnakes/ppa
 RUN apt-get update && apt-get install -y tesseract-ocr-eng python3.7 python-pip
@@ -18,7 +26,9 @@ ADD tesseract.tar .
 
 ENV TESSDATA_PREFIX=/tessdata/
 
-# Install Google Chrome dependencies
+#=========
+# Google Chrome
+#=========
 RUN \
   wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
   echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
@@ -26,7 +36,9 @@ RUN \
   apt-get install -y google-chrome-stable && \
   rm -rf /var/lib/apt/lists/*
 
-# Install System.Drawing native dependencies https://github.com/dotnet/dotnet-docker/issues/618
+#=========
+# System.Drawing native dependencies https://github.com/dotnet/dotnet-docker/issues/618
+#=========
 RUN apt-get update \
     && apt-get install -y --allow-unauthenticated \
         libc6-dev \
@@ -34,7 +46,9 @@ RUN apt-get update \
         libx11-dev \
      && rm -rf /var/lib/apt/lists/*
 
-# Install .Net Core 2.2 SDK https://dotnet.microsoft.com/download/linux-package-manager/ubuntu18-04/sdk-current#ubuntu18-04-issue
+#=========
+# .Net Core 2.2 SDK https://dotnet.microsoft.com/download/linux-package-manager/ubuntu18-04/sdk-current#ubuntu18-04-issue
+#=========
 RUN wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb
 
@@ -46,3 +60,4 @@ RUN add-apt-repository universe && \
 EXPOSE 4444 5900
 
 CMD [ "bash" ]
+
