@@ -1,6 +1,10 @@
 FROM ubuntu:18.04
 
-LABEL author="felipedemacedo" created_at="15/04/2019" updated_at="22/05/2019"
+LABEL author="felipedemacedo" created_at="15/04/2019" updated_at="07/06/2019"
+
+USER root
+ENV TZ=America/Recife
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && apt-get install -y software-properties-common wget
 
