@@ -3,6 +3,11 @@ FROM ubuntu:18.04
 LABEL author="felipedemacedo" created_at="15/04/2019" updated_at="07/06/2019"
 
 USER root
+
+#=========
+# Set TimeZone to America/Recife
+#=========
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-install-recommends tzdata
 ENV TZ=America/Recife
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
