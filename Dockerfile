@@ -38,12 +38,9 @@ ENV TESSDATA_PREFIX=/tessdata/
 #=========
 # Google Chrome
 #=========
-RUN \
-  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-  echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
-  apt-get update && \
-  apt-get install -y google-chrome-stable && \
-  rm -rf /var/lib/apt/lists/*
+RUN wget http://dl.google.com/linux/deb/pool/main/g/google-chrome-stable/google-chrome-stable_74.0.3729.131-1_amd64.deb \
+    apt-get install -y -f ./google-chrome-stable_74.0.3729.131-1_amd64.deb \
+    rm -rf /var/lib/apt/lists/*
 
 #=========
 # System.Drawing native dependencies https://github.com/dotnet/dotnet-docker/issues/618
