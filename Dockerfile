@@ -61,7 +61,7 @@ RUN dpkg -i packages-microsoft-prod.deb
 RUN add-apt-repository universe && \
  apt-get install -y apt-transport-https && \
  apt-get update && \
- apt-get install -y apt-utils dotnet-sdk-2.2
+ apt-get install -y apt-utils dotnet-sdk-2.2 cifs-utils
 
 EXPOSE 4444 5900
 
